@@ -1,1 +1,10 @@
 c:\users\resobyte\documents\visual studio 2015\Projects\SqlToExcel\SqlToExcel\bin\Debug\SqlToExcel.exe.config
+C:\Users\resobyte\Documents\GitHub\SqlToExcel\SqlToExcel\SqlToExcel\bin\Debug\SqlToExcel.exe.config
+C:\Users\resobyte\Documents\GitHub\SqlToExcel\SqlToExcel\SqlToExcel\obj\Debug\SqlToExcel.csprojResolveAssemblyReference.cache
+C:\Users\resobyte\Documents\GitHub\SqlToExcel\SqlToExcel\SqlToExcel\obj\Debug\SqlToExcel.Form1.resources
+C:\Users\resobyte\Documents\GitHub\SqlToExcel\SqlToExcel\SqlToExcel\obj\Debug\SqlToExcel.Properties.Resources.resources
+C:\Users\resobyte\Documents\GitHub\SqlToExcel\SqlToExcel\SqlToExcel\obj\Debug\SqlToExcel.csproj.GenerateResource.Cache
+C:\Users\resobyte\Documents\GitHub\SqlToExcel\SqlToExcel\SqlToExcel\bin\Debug\SqlToExcel.exe
+C:\Users\resobyte\Documents\GitHub\SqlToExcel\SqlToExcel\SqlToExcel\bin\Debug\SqlToExcel.pdb
+C:\Users\resobyte\Documents\GitHub\SqlToExcel\SqlToExcel\SqlToExcel\obj\Debug\SqlToExcel.exe
+C:\Users\resobyte\Documents\GitHub\SqlToExcel\SqlToExcel\SqlToExcel\obj\Debug\SqlToExcel.pdb
