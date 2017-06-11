@@ -103,27 +103,46 @@ namespace SqlToExcel
 
 
                 excelSayfam.Cells[k, 2] = "Servis";
+                excelSayfam.Cells[k, 2].Font.Name = "Calibri";
+                excelSayfam.Cells[k, 2].Font.Size = 10;
+
                 excelSayfam.Cells[k + 1, 2] = "Aktiviteler";
+                excelSayfam.Cells[k + 1, 2].Font.Name = "Calibri";
+                excelSayfam.Cells[k + 1, 2].Font.Size = 10;
 
 
                 excelSayfam.Cells[k, 3] = "Nw-Slv-" + (j + 1);
+                excelSayfam.Cells[k, 3].Font.Name = "Calibri";
+                excelSayfam.Cells[k, 3].Font.Size = 10;
+
                 excelSayfam.Cells[k + 1, 3] = "Konu";
+                excelSayfam.Cells[k + 1, 3].Font.Name = "Calibri";
+                excelSayfam.Cells[k + 1, 3].Font.Size = 10;
+
                 excelSayfam.Cells[k + 2, 3] = "Durum";
+                excelSayfam.Cells[k + 2, 3].Font.Name = "Calibri";
+                excelSayfam.Cells[k + 2, 3].Font.Size = 10;
+
                 excelSayfam.Cells[k + 3, 3] = "Açıklama";
+                excelSayfam.Cells[k + 3, 3].Font.Name = "Calibri";
+                excelSayfam.Cells[k + 3, 3].Font.Size = 10;
 
                 excelSayfam.Cells[k, 1] = "ID: " + ID[j];
 
                 excelSayfam.Cells[k, 4] = Description[j];
-                excelSayfam.Cells[k, 4].ColumnWidth = 60;
+                excelSayfam.Cells[k, 4].ColumnWidth = 80;
                 excelSayfam.Cells[k, 4].Font.Bold = true;
                 excelSayfam.Cells[k, 4].Font.Name = "Calibri";
                 excelSayfam.Cells[k, 4].Font.Size = 10;
+
                 excelSayfam.Cells[k + 1, 4] = Title[j];
                 excelSayfam.Cells[k + 1, 4].Font.Name = "Calibri";
                 excelSayfam.Cells[k + 1, 4].Font.Size = 10;
+
                 excelSayfam.Cells[k + 2, 4] = Status[j];
                 excelSayfam.Cells[k + 2, 4].Font.Name = "Calibri";
                 excelSayfam.Cells[k + 2, 4].Font.Size = 10;
+
                 excelSayfam.Cells[k + 3, 4] = Status_Description[j];
                 excelSayfam.Cells[k + 3, 4].Font.Name = "Calibri";
                 excelSayfam.Cells[k + 3, 4].Font.Size = 10;
@@ -140,8 +159,8 @@ namespace SqlToExcel
                 k += 4;
             }
 
-
-            excelDosyam.Quit();
+      
+            
 
             System.Runtime.InteropServices.Marshal.ReleaseComObject(excelDosyam);
 
