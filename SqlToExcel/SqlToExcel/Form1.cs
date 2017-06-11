@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Office.Interop.Excel;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace SqlToExcel
 {
@@ -19,10 +19,10 @@ namespace SqlToExcel
             InitializeComponent();
         }
 
-        Microsoft.Office.Interop.Excel.Application excelDosyam;
-        Microsoft.Office.Interop.Excel.Worksheet xlSayfa;
-        Microsoft.Office.Interop.Excel.Workbook excelKitabim;
-        Microsoft.Office.Interop.Excel.Range range;
+        Excel.Application excelDosyam;
+       
+        Excel.Workbook excelKitabim;
+        Excel.Range range;
 
         private void Database_Click(object sender, EventArgs e)
         {
@@ -50,7 +50,7 @@ namespace SqlToExcel
 
             SqlDataReader dr = command.ExecuteReader();
 
-
+            string [] ID = new string[sayac];
             string[] Description = new string[sayac];
             string[] Title = new string[sayac];
             string[] Status = new string[sayac];
@@ -60,6 +60,7 @@ namespace SqlToExcel
 
             while (dr.Read())
             {
+                ID[i] = dr["ID"].ToString();
                 Description[i] = dr["Description"].ToString();
                 Title[i] = dr["Title"].ToString();
                 Status[i] = dr["Status"].ToString();
@@ -69,19 +70,19 @@ namespace SqlToExcel
                 i++;
             }
 
-            excelDosyam = new Microsoft.Office.Interop.Excel.Application();
+            excelDosyam = new Excel.Application();
             excelDosyam.Visible = true;
 
             object sayfa = true;
             excelKitabim = excelDosyam.Workbooks.Add(sayfa);
             object multiSayfa = System.Reflection.Missing.Value;
-            Microsoft.Office.Interop.Excel.Worksheet Tablo;
-            Tablo = (Worksheet) excelDosyam.ActiveSheet;
+            Excel.Worksheet Tablo;
+            Tablo =  excelDosyam.ActiveSheet;
             excelDosyam.Worksheets.Add(multiSayfa, Tablo, 1, multiSayfa);
 
-            Microsoft.Office.Interop.Excel.Worksheet excelSayfam;
+            Excel.Worksheet excelSayfam;
 
-            excelSayfam = (Worksheet) excelDosyam.Application.Sheets[1];
+            excelSayfam = excelDosyam.Application.Sheets[1];
 
 
             object hangiSayfaAktif = 1;
@@ -90,15 +91,11 @@ namespace SqlToExcel
             int k = 1;
 
 
-            
-
-
-
-
             for (int j = 0; j < sayac; j++)
             {
                 range = excelSayfam.get_Range("a" + k, "a" + (k + 3));
-                range.Interior.Color = Microsoft.Office.Interop.Excel.XlRgbColor.rgbGrey;
+                range.Interior.Color = Excel.XlRgbColor.rgbGrey;
+                
 
                 excelSayfam.Cells[k, 2] = "Servis";
                 excelSayfam.Cells[k + 1, 2] = "Aktiviteler";
@@ -109,6 +106,7 @@ namespace SqlToExcel
                 excelSayfam.Cells[k + 2, 3] = "Durum";
                 excelSayfam.Cells[k + 3, 3] = "Açıklama";
 
+                excelSayfam.Cells[k, 1] = ID[j];
                 excelSayfam.Cells[k, 4] = Description[j];
                 excelSayfam.Cells[k + 1, 4] = Title[j];
                 excelSayfam.Cells[k + 2, 4] = Status[j];
@@ -120,17 +118,21 @@ namespace SqlToExcel
                 k += 4;
             }
 
+           
+            excelDosyam.Quit();
+
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(excelDosyam);
 
 //            range = excelSayfam.get_Range("a1", "a5");
-//            range.Interior.Color = Microsoft.Office.Interop.Excel.XlRgbColor.rgbAqua;
+//            range.Interior.Color = Excel.XlRgbColor.rgbAqua;
 //            range.Font.Size = 20;
-//            range.Font.Color= Microsoft.Office.Interop.Excel.XlRgbColor.rgbPink;
+//            range.Font.Color= Excel.XlRgbColor.rgbPink;
 //            excelSayfam.Cells[1, 2] = "BU HUCRE RENKLI";
 
 
             //            excelKitabim.SaveAs(@"c:\resobit.xls",
-            //            Microsoft.Office.Interop.Excel.XlFileFormat.xlXMLSpreadsheet, Type.Missing, Type.Missing,
-            //            false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange,
+            //            Excel.XlFileFormat.xlXMLSpreadsheet, Type.Missing, Type.Missing,
+            //            false, false, Excel.XlSaveAsAccessMode.xlNoChange,
             //            Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
         }
     }
