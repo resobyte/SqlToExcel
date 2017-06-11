@@ -20,7 +20,7 @@ namespace SqlToExcel
         }
 
         Excel.Application excelDosyam;
-       
+
         Excel.Workbook excelKitabim;
         Excel.Range range;
 
@@ -50,12 +50,12 @@ namespace SqlToExcel
 
             SqlDataReader dr = command.ExecuteReader();
 
-            string [] ID = new string[sayac];
+            string[] ID = new string[sayac];
             string[] Description = new string[sayac];
             string[] Title = new string[sayac];
             string[] Status = new string[sayac];
             string[] Status_Description = new string[sayac];
-            string [] date = new string[sayac];
+            string[] date = new string[sayac];
 
 
             while (dr.Read())
@@ -77,7 +77,7 @@ namespace SqlToExcel
             excelKitabim = excelDosyam.Workbooks.Add(sayfa);
             object multiSayfa = System.Reflection.Missing.Value;
             Excel.Worksheet Tablo;
-            Tablo =  excelDosyam.ActiveSheet;
+            Tablo = excelDosyam.ActiveSheet;
             excelDosyam.Worksheets.Add(multiSayfa, Tablo, 1, multiSayfa);
 
             Excel.Worksheet excelSayfam;
@@ -95,30 +95,52 @@ namespace SqlToExcel
             {
                 range = excelSayfam.get_Range("a" + k, "a" + (k + 3));
                 range.Interior.Color = Excel.XlRgbColor.rgbGrey;
-                
+
+                range = excelSayfam.get_Range("b" + k, "e" + (k + 3));
+                Excel.Borders cerceve = range.Borders;
+                cerceve.LineStyle = Excel.XlLineStyle.xlContinuous;
+                cerceve.Weight = 2d;
+
 
                 excelSayfam.Cells[k, 2] = "Servis";
                 excelSayfam.Cells[k + 1, 2] = "Aktiviteler";
-            
+
 
                 excelSayfam.Cells[k, 3] = "Nw-Slv-" + (j + 1);
                 excelSayfam.Cells[k + 1, 3] = "Konu";
                 excelSayfam.Cells[k + 2, 3] = "Durum";
                 excelSayfam.Cells[k + 3, 3] = "Açıklama";
 
-                excelSayfam.Cells[k, 1] = ID[j];
+                excelSayfam.Cells[k, 1] = "ID: " + ID[j];
+
                 excelSayfam.Cells[k, 4] = Description[j];
+                excelSayfam.Cells[k, 4].ColumnWidth = 60;
+                excelSayfam.Cells[k, 4].Font.Bold = true;
+                excelSayfam.Cells[k, 4].Font.Name = "Calibri";
+                excelSayfam.Cells[k, 4].Font.Size = 10;
                 excelSayfam.Cells[k + 1, 4] = Title[j];
+                excelSayfam.Cells[k + 1, 4].Font.Name = "Calibri";
+                excelSayfam.Cells[k + 1, 4].Font.Size = 10;
                 excelSayfam.Cells[k + 2, 4] = Status[j];
+                excelSayfam.Cells[k + 2, 4].Font.Name = "Calibri";
+                excelSayfam.Cells[k + 2, 4].Font.Size = 10;
                 excelSayfam.Cells[k + 3, 4] = Status_Description[j];
+                excelSayfam.Cells[k + 3, 4].Font.Name = "Calibri";
+                excelSayfam.Cells[k + 3, 4].Font.Size = 10;
 
                 excelSayfam.Cells[k + 2, 5] = "Tarih";
+                excelSayfam.Cells[k + 2, 5].Font.Name = "Calibri";
+                excelSayfam.Cells[k + 2, 4].Font.Size = 10;
+
                 excelSayfam.Cells[k + 3, 5] = date[j];
+
+                excelSayfam.Cells[k + 3, 5].Font.Name = "Calibri";
+                excelSayfam.Cells[k + 3, 5].Font.Size = 10;
 
                 k += 4;
             }
 
-           
+
             excelDosyam.Quit();
 
             System.Runtime.InteropServices.Marshal.ReleaseComObject(excelDosyam);
