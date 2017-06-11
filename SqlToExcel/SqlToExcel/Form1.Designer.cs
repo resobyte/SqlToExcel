@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.Database = new System.Windows.Forms.Button();
-            this.Data = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.Data)).BeginInit();
             this.SuspendLayout();
             // 
             // Database
@@ -43,24 +41,14 @@
             this.Database.UseVisualStyleBackColor = true;
             this.Database.Click += new System.EventHandler(this.Database_Click);
             // 
-            // Data
-            // 
-            this.Data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Data.Location = new System.Drawing.Point(41, 145);
-            this.Data.Name = "Data";
-            this.Data.Size = new System.Drawing.Size(465, 150);
-            this.Data.TabIndex = 1;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(538, 346);
-            this.Controls.Add(this.Data);
+            this.ClientSize = new System.Drawing.Size(238, 164);
             this.Controls.Add(this.Database);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.Data)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -68,7 +56,6 @@
         #endregion
 
         private System.Windows.Forms.Button Database;
-        private System.Windows.Forms.DataGridView Data;
     }
 }
 

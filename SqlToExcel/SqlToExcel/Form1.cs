@@ -56,6 +56,7 @@ namespace SqlToExcel
             string[] Status = new string[sayac];
             string[] Status_Description = new string[sayac];
             string[] date = new string[sayac];
+            string[] who = new string[sayac];
 
 
             while (dr.Read())
@@ -66,6 +67,7 @@ namespace SqlToExcel
                 Status[i] = dr["Status"].ToString();
                 Status_Description[i] = dr["Status_Description"].ToString();
                 date[i] = dr["Date"].ToString();
+                who[i] = dr["who"].ToString();
 
                 i++;
             }
@@ -84,7 +86,6 @@ namespace SqlToExcel
 
             excelSayfam = excelDosyam.Application.Sheets[1];
 
-
             object hangiSayfaAktif = 1;
             excelSayfam.Select(hangiSayfaAktif);
 
@@ -96,40 +97,65 @@ namespace SqlToExcel
                 range = excelSayfam.get_Range("a" + k, "a" + (k + 3));
                 range.Interior.Color = Excel.XlRgbColor.rgbGrey;
 
+                range = excelSayfam.get_Range("e" + (k+2), "e" + (k + 3));
+                range.Interior.Color = Excel.XlRgbColor.rgbGrey;
+
+                range = excelSayfam.get_Range("b" + (k+1), "b" + (k + 3));
+                range.Interior.Color = Excel.XlRgbColor.rgbAqua;
+
+                range = excelSayfam.get_Range("c" + (k+1), "c" + (k + 3));
+                range.Interior.Color = Excel.XlRgbColor.rgbAqua;
+
+
+
                 range = excelSayfam.get_Range("b" + k, "e" + (k + 3));
                 Excel.Borders cerceve = range.Borders;
                 cerceve.LineStyle = Excel.XlLineStyle.xlContinuous;
                 cerceve.Weight = 2d;
 
+                range = excelSayfam.get_Range("b" + k, "d" + k);
+                range.Interior.Color = Excel.XlRgbColor.rgbAntiqueWhite;
+
+                range = excelSayfam.get_Range("b" + (k+1), "d" + (k+1));
+                range.Interior.Color = Excel.XlRgbColor.rgbAqua;
+
 
                 excelSayfam.Cells[k, 2] = "Servis";
                 excelSayfam.Cells[k, 2].Font.Name = "Calibri";
                 excelSayfam.Cells[k, 2].Font.Size = 10;
+                excelSayfam.Cells[k, 2].Font.Bold = true;
 
                 excelSayfam.Cells[k + 1, 2] = "Aktiviteler";
                 excelSayfam.Cells[k + 1, 2].Font.Name = "Calibri";
                 excelSayfam.Cells[k + 1, 2].Font.Size = 10;
+                excelSayfam.Cells[k + 1, 2].Font.Bold = true;
 
 
                 excelSayfam.Cells[k, 3] = "Nw-Slv-" + (j + 1);
                 excelSayfam.Cells[k, 3].Font.Name = "Calibri";
                 excelSayfam.Cells[k, 3].Font.Size = 10;
+                excelSayfam.Cells[k, 3].Font.Bold = true;
 
                 excelSayfam.Cells[k + 1, 3] = "Konu";
                 excelSayfam.Cells[k + 1, 3].Font.Name = "Calibri";
                 excelSayfam.Cells[k + 1, 3].Font.Size = 10;
+                excelSayfam.Cells[k + 1, 3].Font.Bold = true;
 
                 excelSayfam.Cells[k + 2, 3] = "Durum";
                 excelSayfam.Cells[k + 2, 3].Font.Name = "Calibri";
                 excelSayfam.Cells[k + 2, 3].Font.Size = 10;
+                excelSayfam.Cells[k + 2, 3].Font.Bold = true;
 
                 excelSayfam.Cells[k + 3, 3] = "Açıklama";
                 excelSayfam.Cells[k + 3, 3].Font.Name = "Calibri";
                 excelSayfam.Cells[k + 3, 3].Font.Size = 10;
+                excelSayfam.Cells[k + 3, 3].Font.Bold = true;
 
                 excelSayfam.Cells[k, 1] = "ID: " + ID[j];
+                
 
                 excelSayfam.Cells[k, 4] = Description[j];
+
                 excelSayfam.Cells[k, 4].ColumnWidth = 80;
                 excelSayfam.Cells[k, 4].Font.Bold = true;
                 excelSayfam.Cells[k, 4].Font.Name = "Calibri";
@@ -140,27 +166,44 @@ namespace SqlToExcel
                 excelSayfam.Cells[k + 1, 4].Font.Size = 10;
 
                 excelSayfam.Cells[k + 2, 4] = Status[j];
+
+
+               if(Status[j].Contains("Çözüldü"))
+                excelSayfam.Cells[k+2, 4].Interior.Color = Excel.XlRgbColor.rgbGreen;
+
+               else
+                excelSayfam.Cells[k + 2, 4].Interior.Color = Excel.XlRgbColor.rgbRed;
+
                 excelSayfam.Cells[k + 2, 4].Font.Name = "Calibri";
                 excelSayfam.Cells[k + 2, 4].Font.Size = 10;
 
+                
                 excelSayfam.Cells[k + 3, 4] = Status_Description[j];
+
+                if (Status[j].Contains("Çözüldü"))
+                excelSayfam.Cells[k + 3, 4].Interior.Color = Excel.XlRgbColor.rgbGreen;
+
+                else
+                    excelSayfam.Cells[k + 3, 4].Interior.Color = Excel.XlRgbColor.rgbRed;
+
                 excelSayfam.Cells[k + 3, 4].Font.Name = "Calibri";
                 excelSayfam.Cells[k + 3, 4].Font.Size = 10;
 
+                excelSayfam.Cells[k + 1, 5] = who[j];
+                excelSayfam.Cells[k + 1, 5].Font.Name = "Calibri";
+                excelSayfam.Cells[k + 1, 5].Font.Size = 10;
+                excelSayfam.Cells[k + 1, 5] = Excel.XlRgbColor.rgbAntiqueWhite;
+
                 excelSayfam.Cells[k + 2, 5] = "Tarih";
                 excelSayfam.Cells[k + 2, 5].Font.Name = "Calibri";
-                excelSayfam.Cells[k + 2, 4].Font.Size = 10;
+                excelSayfam.Cells[k + 2, 5].Font.Size = 10;
 
                 excelSayfam.Cells[k + 3, 5] = date[j];
-
                 excelSayfam.Cells[k + 3, 5].Font.Name = "Calibri";
                 excelSayfam.Cells[k + 3, 5].Font.Size = 10;
 
                 k += 4;
             }
-
-      
-            
 
             System.Runtime.InteropServices.Marshal.ReleaseComObject(excelDosyam);
 
