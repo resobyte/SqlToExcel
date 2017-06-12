@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,8 +28,58 @@ namespace SqlToExcel
 
         private void Database_Click(object sender, EventArgs e)
         {
+            string connection = "SELECT * FROM Report";
+            ExcelIslemleri(connection);
+
+        }
+
+        private void Company_Click(object sender, EventArgs e)
+        {
+            string connection = "SELECT * FROM Report where Company=" + "'" + CompanyName.Text + "'";
+            ExcelIslemleri(connection);
+        }
+
+        private void Date_Click(object sender, EventArgs e)
+        {
+            DateTime OncekidateTime = oncekiDate.Value;
+            DateTime SonrakidateTime = sonrakiDate.Value;
+
+            if (OncekidateTime > SonrakidateTime)
+            {
+                MessageBox.Show("2.Tarih daha önce olamaz");
+            }
+
+            else
+            {
+                string connection = "Select * from Report where Date >= " + OncekidateTime + " and Date < " +
+                                    SonrakidateTime + "'";
+                ExcelIslemleri(connection);
+
+            }
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
             SqlConnection conn = new SqlConnection("Server=RESOBIT;Database=bizcom;Integrated Security = True");
-            SqlCommand command = new SqlCommand("SELECT * FROM Report", conn);
+            SqlCommand command = new SqlCommand("SELECT Company FROM Report", conn);
+
+            SqlDataReader dr;
+            conn.Open();
+
+            dr = command.ExecuteReader();
+            while (dr.Read())
+            {
+                CompanyName.Items.Add(dr["Company"]);
+            }
+            conn.Close();
+        }
+
+        public void ExcelIslemleri(string connection)
+        {
+
+            SqlConnection conn = new SqlConnection("Server=RESOBIT;Database=bizcom;Integrated Security = True");
+            SqlCommand command = new SqlCommand(connection, conn);
             //            SqlDataAdapter adp = new SqlDataAdapter(command);
             //
             //            DataTable dtable = new DataTable();
@@ -214,11 +265,12 @@ namespace SqlToExcel
             saveFileDialog1.ShowDialog();
 
             excelKitabim.SaveAs(saveFileDialog1.FileName, Excel.XlFileFormat.xlWorkbookDefault,
-            Type.Missing,Type.Missing,false,
-            Type.Missing,Excel.XlSaveAsAccessMode.xlExclusive);
+                Type.Missing, Type.Missing, false,
+                Type.Missing, Excel.XlSaveAsAccessMode.xlExclusive);
 
             MessageBox.Show("Rapor Alma İşlemi Başarıyla Tamamlandı..");
-
         }
+
+     
     }
 }
