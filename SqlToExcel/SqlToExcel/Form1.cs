@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,7 +74,7 @@ namespace SqlToExcel
             }
 
             excelDosyam = new Excel.Application();
-            excelDosyam.Visible = true;
+            excelDosyam.Visible = false;
 
             object sayfa = true;
             excelKitabim = excelDosyam.Workbooks.Add(sayfa);
@@ -97,15 +98,14 @@ namespace SqlToExcel
                 range = excelSayfam.get_Range("a" + k, "a" + (k + 3));
                 range.Interior.Color = Excel.XlRgbColor.rgbGrey;
 
-                range = excelSayfam.get_Range("e" + (k+2), "e" + (k + 3));
+                range = excelSayfam.get_Range("e" + (k + 2), "e" + (k + 3));
                 range.Interior.Color = Excel.XlRgbColor.rgbGrey;
 
-                range = excelSayfam.get_Range("b" + (k+1), "b" + (k + 3));
+                range = excelSayfam.get_Range("b" + (k + 1), "b" + (k + 3));
                 range.Interior.Color = Excel.XlRgbColor.rgbAqua;
 
-                range = excelSayfam.get_Range("c" + (k+1), "c" + (k + 3));
+                range = excelSayfam.get_Range("c" + (k + 1), "c" + (k + 3));
                 range.Interior.Color = Excel.XlRgbColor.rgbAqua;
-
 
 
                 range = excelSayfam.get_Range("b" + k, "e" + (k + 3));
@@ -116,7 +116,7 @@ namespace SqlToExcel
                 range = excelSayfam.get_Range("b" + k, "d" + k);
                 range.Interior.Color = Excel.XlRgbColor.rgbAntiqueWhite;
 
-                range = excelSayfam.get_Range("b" + (k+1), "d" + (k+1));
+                range = excelSayfam.get_Range("b" + (k + 1), "d" + (k + 1));
                 range.Interior.Color = Excel.XlRgbColor.rgbAqua;
 
 
@@ -152,7 +152,7 @@ namespace SqlToExcel
                 excelSayfam.Cells[k + 3, 3].Font.Bold = true;
 
                 excelSayfam.Cells[k, 1] = "ID: " + ID[j];
-                
+
 
                 excelSayfam.Cells[k, 4] = Description[j];
 
@@ -168,20 +168,20 @@ namespace SqlToExcel
                 excelSayfam.Cells[k + 2, 4] = Status[j];
 
 
-               if(Status[j].Contains("Çözüldü"))
-                excelSayfam.Cells[k+2, 4].Interior.Color = Excel.XlRgbColor.rgbGreen;
+                if (Status[j].Contains("Çözüldü"))
+                    excelSayfam.Cells[k + 2, 4].Interior.Color = Excel.XlRgbColor.rgbGreen;
 
-               else
-                excelSayfam.Cells[k + 2, 4].Interior.Color = Excel.XlRgbColor.rgbRed;
+                else
+                    excelSayfam.Cells[k + 2, 4].Interior.Color = Excel.XlRgbColor.rgbRed;
 
                 excelSayfam.Cells[k + 2, 4].Font.Name = "Calibri";
                 excelSayfam.Cells[k + 2, 4].Font.Size = 10;
 
-                
+
                 excelSayfam.Cells[k + 3, 4] = Status_Description[j];
 
                 if (Status[j].Contains("Çözüldü"))
-                excelSayfam.Cells[k + 3, 4].Interior.Color = Excel.XlRgbColor.rgbGreen;
+                    excelSayfam.Cells[k + 3, 4].Interior.Color = Excel.XlRgbColor.rgbGreen;
 
                 else
                     excelSayfam.Cells[k + 3, 4].Interior.Color = Excel.XlRgbColor.rgbRed;
@@ -192,7 +192,7 @@ namespace SqlToExcel
                 excelSayfam.Cells[k + 1, 5] = who[j];
                 excelSayfam.Cells[k + 1, 5].Font.Name = "Calibri";
                 excelSayfam.Cells[k + 1, 5].Font.Size = 10;
-                excelSayfam.Cells[k + 1, 5] = Excel.XlRgbColor.rgbAntiqueWhite;
+                //excelSayfam.Cells[k + 1, 5] = Excel.XlRgbColor.rgbAntiqueWhite;
 
                 excelSayfam.Cells[k + 2, 5] = "Tarih";
                 excelSayfam.Cells[k + 2, 5].Font.Name = "Calibri";
@@ -207,17 +207,18 @@ namespace SqlToExcel
 
             System.Runtime.InteropServices.Marshal.ReleaseComObject(excelDosyam);
 
-//            range = excelSayfam.get_Range("a1", "a5");
-//            range.Interior.Color = Excel.XlRgbColor.rgbAqua;
-//            range.Font.Size = 20;
-//            range.Font.Color= Excel.XlRgbColor.rgbPink;
-//            excelSayfam.Cells[1, 2] = "BU HUCRE RENKLI";
 
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "Excel Dosyası|*.xlsx";
+            saveFileDialog1.Title = "Save an Image File";
+            saveFileDialog1.ShowDialog();
 
-            //            excelKitabim.SaveAs(@"c:\resobit.xls",
-            //            Excel.XlFileFormat.xlXMLSpreadsheet, Type.Missing, Type.Missing,
-            //            false, false, Excel.XlSaveAsAccessMode.xlNoChange,
-            //            Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            excelKitabim.SaveAs(saveFileDialog1.FileName, Excel.XlFileFormat.xlWorkbookDefault,
+            Type.Missing,Type.Missing,false,
+            Type.Missing,Excel.XlSaveAsAccessMode.xlExclusive);
+
+            MessageBox.Show("Rapor Alma İşlemi Başarıyla Tamamlandı..");
+
         }
     }
 }
