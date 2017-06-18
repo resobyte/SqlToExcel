@@ -1,0 +1,3 @@
+# SqlToExcel
+
+Ufak çaplı bir raporlama sistemi denilebilir. Sql'de bulunan verinin belirli formatlarla, excel'e yazılması...
